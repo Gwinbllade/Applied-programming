@@ -73,7 +73,10 @@ public class Main {
      * @param n розмірність масиву
      */
     public static void createArr(Student[] arr, int n)throws FileNotFoundException{
-        File file = new File("C:\\Users\\38097\\Desktop\\test.txt");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the file path: ");
+        String path =scanner.nextLine() ;
+        File file = new File(path);
         Scanner in = new Scanner(file);
 
         for(int i = 0; i<n ;i++) {

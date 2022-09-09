@@ -44,8 +44,7 @@ public class NumberOfLuka {
     }
 
     /**
-     * Поле для виведення полів класу
-     * @return Рядок
+     * @return Рядок інформації про об'єкт
      * */
     public String toString(){
         return String.format("Value:%d - Sequence Number:%d ",this.value,this.sequenceNumber );

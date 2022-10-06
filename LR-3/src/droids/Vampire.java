@@ -3,7 +3,7 @@ package droids;
 public class Vampire extends BaseDroid{
     public Vampire(String name){
         this.name = name;
-        this.type = "Vampire";
+        this.type = "V";
         this.health = 80;
         this.damage = 4;
         this.precision = 5;

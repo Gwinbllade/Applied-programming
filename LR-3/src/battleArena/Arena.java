@@ -99,30 +99,24 @@ public class Arena {
     public static boolean Attacked(BaseDroid droid, BaseDroid enemy) {
         boolean kill = false;
         if (droid.attack(enemy)) {
-            System.out.printf("%s(%s) attacked  %s(%s)\n\n", droid.getName(), droid.getType(),
+            System.out.printf("%s(%s) attacked  %s(%s)", droid.getName(), droid.getType(),
                     enemy.getName(), enemy.getType());
         } else {
-            System.out.printf("%s(%s) missed \n\n", droid.getName(), droid.getType());
+            System.out.printf("%s(%s) missed", droid.getName(), droid.getType());
         }
 
         if (enemy.getHealth() <= 0) {
             kill = true;
-            System.out.printf("%s(%s) kill %s(%s)\n\n", droid.getName(), droid.getType(),
+            System.out.printf("\n%s(%s) kill %s(%s)", droid.getName(), droid.getType(),
                     enemy.getName(), enemy.getType());
         }
+        System.out.print("\n\n\n");
         return kill;
     }
 
 
     public static int removeDroid(BaseDroid[] arr, int indexD, int SizeT) {
-        arr[indexD] = null;
-        if(SizeT  == 1 ){
-            return 0;
-        }
-        for (int i = indexD; i < arr.length - 1; i++) {
-            arr[i] = arr[i + 1];
-        }
-
+        System.arraycopy(arr, indexD + 1, arr, indexD, arr.length - indexD - 1);
         return SizeT - 1;
     }
 
@@ -130,10 +124,10 @@ public class Arena {
         int round = 0;
         while (true) {
             round++;
-            System.out.printf("\t\t\t Round %d\n", round);
-            System.out.print("\t\t\t First team attacked\n ");
+            System.out.printf("------------Round %d---------------\n", round);
+            System.out.print("\t\t\tFirst team attacked\n");
 
-            for (int i = 0; i < sizeFT-1; i++) {
+            for (int i = 0; i < sizeFT; i++) {
                 int droidFT = (int) (Math.random() * sizeFT);//індекс дроїда з першої команди
                 int droidST = (int) (Math.random() * sizeST);//індекс дроїда з другої команди
                 if (Attacked(teamFirst[droidFT], teamSecond[droidST])) {
@@ -141,22 +135,23 @@ public class Arena {
                 }
             }
 
-            if (sizeST == 0) {
-                System.out.print("Win first team");
+            if (sizeST <= 0) {
+                System.out.print("\t\tWin first team\n\n");
                 break;
             }
 
-            System.out.print("\t\t\t Second team attacked\n ");
+            System.out.print("\t\t\t Second team attacked\n");
 
-            for (int i = 0; i < sizeFT; i++) {
+            for (int i = 0; i < sizeST; i++) {
                 int droidFT = (int) (Math.random() * sizeFT);//індекс дроїда з першої команди
                 int droidST = (int) (Math.random() * sizeST);//індекс дроїда з другої команди
                 if (Attacked(teamSecond[droidST], teamFirst[droidFT])) {
                     sizeFT = removeDroid(teamFirst, droidFT, sizeFT);
                 }
             }
-            if (sizeFT == 0) {
-                System.out.print("Win second team");
+
+            if (sizeFT <= 0) {
+                System.out.print("\t\tWin second team\n\n");
                 break;
             }
         }

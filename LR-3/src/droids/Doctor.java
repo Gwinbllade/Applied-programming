@@ -3,7 +3,7 @@ package droids;
 public class Doctor extends BaseDroid {
     public Doctor(String name){
         this.name = name;
-        this.type = "Doctor";
+        this.type = "D";
         this.health = 100;
         this.damage = 4;
         this.precision = 5;

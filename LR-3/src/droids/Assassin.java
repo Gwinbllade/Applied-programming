@@ -3,7 +3,7 @@ package droids;
 public class Assassin extends BaseDroid{
     public Assassin(String name){
         this.name = name;
-        this.type = "Assassin";
+        this.type = "A";
         this.health = 50;
         this.damage = 10;
         this.precision = 9;
@@ -19,7 +19,7 @@ public class Assassin extends BaseDroid{
 
         if(pAttack <= this.precision) {
             if (SAC <= specialAbilityChance) {
-                System.out.printf("%s(%s) Activates a special ability and becomes stronger\n ", this.name, this.type);
+                System.out.printf("%s(%s) Activates a special ability and becomes stronger\n", this.name, this.type);
                 enemy.health -= this.damage*2;
             }
 

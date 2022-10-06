@@ -3,7 +3,7 @@ package droids;
 public class Tank extends BaseDroid{
     public Tank(String name){
         this.name = name;
-        this.type = "Tank";
+        this.type = "T";
         this.health = 200;
         this.damage = 4;
         this.precision = 5;

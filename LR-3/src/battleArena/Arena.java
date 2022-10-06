@@ -116,10 +116,11 @@ public class Arena {
 
     public static int removeDroid(BaseDroid[] arr, int indexD, int SizeT) {
         arr[indexD] = null;
-
-        for (int i = indexD; i < arr.length - 1; i++) {// Переміщення видаленого елементу в кінець списку
-            arr[i - 1] = arr[i];
-            arr[i] = null;
+        if(SizeT  == 1 ){
+            return 0;
+        }
+        for (int i = indexD; i < arr.length - 1; i++) {
+            arr[i] = arr[i + 1];
         }
 
         return SizeT - 1;
@@ -127,12 +128,12 @@ public class Arena {
 
     public void Fight() {
         int round = 0;
-        while (sizeFT != 0 && sizeST != 0) {
+        while (true) {
             round++;
             System.out.printf("\t\t\t Round %d\n", round);
             System.out.print("\t\t\t First team attacked\n ");
 
-            for (int i = 0; i < sizeFT; i++) {
+            for (int i = 0; i < sizeFT-1; i++) {
                 int droidFT = (int) (Math.random() * sizeFT);//індекс дроїда з першої команди
                 int droidST = (int) (Math.random() * sizeST);//індекс дроїда з другої команди
                 if (Attacked(teamFirst[droidFT], teamSecond[droidST])) {

@@ -24,7 +24,7 @@ public class Doctor extends BaseDroid {
 
         if(SAC <= this.specialAbilityChance) {
             this.health += 5;
-            System.out.printf("The %s (%s) was afraid (+5 health)", this.name,this.type );
+            System.out.printf("The %s (%s) was afraid (+5 health)\n", this.name,this.type );
         }
         return attackSuccess;
 

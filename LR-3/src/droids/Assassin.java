@@ -19,7 +19,7 @@ public class Assassin extends BaseDroid{
 
         if(pAttack <= this.precision) {
             if (SAC <= specialAbilityChance) {
-                System.out.printf("%s(%s) Activates a special ability and becomes stronger", this.name, this.type);
+                System.out.printf("%s(%s) Activates a special ability and becomes stronger\n ", this.name, this.type);
                 enemy.health -= this.damage*2;
             }
 

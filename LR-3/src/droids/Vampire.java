@@ -17,7 +17,7 @@ public class Vampire extends BaseDroid{
         int pAttack = (int) ( Math.random() * 11 );
 
         if(pAttack <= this.precision) {
-            System.out.printf("%s(%s) Being treated(+2) %n", this.name, this.type );
+            System.out.printf("\u001B[33m"+"%s(%s) Being treated(+2) %n"+"\u001B[33m", this.name, this.type );
             enemy.health -= this.damage;
             this.health += 2;
             attackSuccess = true;

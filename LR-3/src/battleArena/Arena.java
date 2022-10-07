@@ -1,34 +1,49 @@
 package battleArena;
 import droids.*;
 import java.util.Scanner;
-
+import text.Text;
 
 public class Arena {
-    private BaseDroid[] teamFirst;
-    private BaseDroid[] teamSecond;
+    public static final String ANSI_BLACK = "\u001B[30m";
+    private final BaseDroid[] teamFirst;
+    private final BaseDroid[] teamSecond;
     private int sizeFT;
     private int sizeST;
+
 
     public Arena() {
         int size, typeOfDroid;
 
         Scanner input = new Scanner(System.in);
-        System.out.print("\n     Enter the size of the first command: ");
+        System.out.print(Text.BLUE + "\n     Enter the size of the first command: "+ Text.BLUE);
         size = Integer.parseInt(input.nextLine());
         this.sizeFT = size;
 
         this.teamFirst = new BaseDroid[size];
         completingCommands(this.teamFirst);
 
-        System.out.print("\n     Enter the size of the second command: ");
+        System.out.print(Text.RED + "\n     Enter the size of the second command: ");
         size = Integer.parseInt(input.nextLine());
         this.sizeST = size;
         this.teamSecond = new BaseDroid[size];
         completingCommands(this.teamSecond);
 
-        System.out.println("Team formation is complete");
+        System.out.println(Text.GREEN+"\t\tTeam formation is complete"+ Text.RESET);
     }
 
+
+    public void PrintTeam(){
+        System.out.print(Text.BLUE+"\t\t\tFirst team \n"+Text.RESET);
+        for(int i = 0;i< teamFirst.length;i++){
+            System.out.printf(Text.BLUE+"%d - %s (%s)\n"+Text.RESET, i+1, teamFirst[i].getName(), teamFirst[i].getType());
+        }
+
+        System.out.print(Text.RED+"\t\t\tSecond team \n"+Text.RESET);
+        for(int i = 0;i< teamSecond.length;i++){
+            System.out.printf(Text.RED+"%d - %s (%s)\n"+Text.RESET, i+1, teamSecond[i].getName(), teamSecond[i].getType());
+        }
+
+    }
 
     public static void completingCommands(BaseDroid[] arr) {
         int typeOfDroid;
@@ -36,8 +51,8 @@ public class Arena {
         Scanner input = new Scanner(System.in);
         System.out.println("Select droid type: assassin(1), doctor(2), tank(3), vampire(4), droid information(0)");
         for (int i = 0; i < arr.length; i++) {
+            System.out.print("Select droid type:");
             typeOfDroid = Integer.parseInt(input.nextLine());
-
 
             switch (typeOfDroid) {
                 case (1):
@@ -85,6 +100,7 @@ public class Arena {
                             Damage - 4
                             Precision - 50%
                             Special ability: no \n \n""");
+                    i--;
                     break;
                 default:
                     i--;
@@ -121,11 +137,12 @@ public class Arena {
     }
 
     public void Fight() {
+        System.out.println(Text.RESET +"\t\t Fight");
         int round = 0;
         while (true) {
             round++;
-            System.out.printf("------------Round %d---------------\n", round);
-            System.out.print("\t\t\tFirst team attacked\n");
+            System.out.printf(Text.GREEN +"------------Round %d---------------\n"+ Text.RESET, round);
+            System.out.print(Text.BLUE+"\t\t\tFirst team attacked\n"+Text.RESET);
 
             for (int i = 0; i < sizeFT; i++) {
                 int droidFT = (int) (Math.random() * sizeFT);//індекс дроїда з першої команди
@@ -136,12 +153,12 @@ public class Arena {
             }
 
             if (sizeST <= 0) {
-                System.out.print("\t\tWin first team\n\n");
+
+                System.out.print(Text.TWFT);
                 break;
             }
 
-            System.out.print("\t\t\t Second team attacked\n");
-
+            System.out.print(Text.RED+"\t\t\t Second team attacked\n"+Text.RESET);
             for (int i = 0; i < sizeST; i++) {
                 int droidFT = (int) (Math.random() * sizeFT);//індекс дроїда з першої команди
                 int droidST = (int) (Math.random() * sizeST);//індекс дроїда з другої команди
@@ -151,7 +168,7 @@ public class Arena {
             }
 
             if (sizeFT <= 0) {
-                System.out.print("\t\tWin second team\n\n");
+                System.out.print(Text.TWST);
                 break;
             }
         }

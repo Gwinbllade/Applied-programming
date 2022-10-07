@@ -1,21 +1,37 @@
 import droids.*;
 import battleArena.Arena;
-
+import text.Text;
 import java.util.Scanner;
 
 
 public class Main {
-    public static void game(){
+    public static void game() {
+        Scanner input = new Scanner(System.in);
         Arena arena = new Arena();
-        System.out.println("\t\t Fight");
-        arena.Fight();
+        int action;
+        while (true) {
+            System.out.print("\nSelect an action: ");
+            action = input.nextInt();
+            switch (action) {
+                case (0):
+                    arena.PrintTeam();
+                    break;
+                case (1):
+                    arena.Fight();
+                    return;
+                default:
+                    System.out.println("Error");
+                    break;
+            }
+        }
+}
 
-    }
 
     public static void main(String[] args) {
+        System.out.print(Text.Title);
         while (true) {
             Scanner input = new Scanner(System.in);
-            System.out.println("Choose an action: end program(0), start new game(1), play game(2)");
+            System.out.print("\nChoose an action: end program(0), start new game(1), start the game from the file (2): ");
             int action = input.nextInt();
             switch (action){
                 case(0):
@@ -25,6 +41,9 @@ public class Main {
                 case(1):
                     System.out.println("Star");
                     game();
+                    break;
+                case(2):
+                    System.out.print("Star from the file");
                     break;
                 default:
                     System.out.println("Error");

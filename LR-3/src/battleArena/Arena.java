@@ -16,7 +16,7 @@ public class Arena {
     public Arena() {
         file = new FileGames();
         file.CreateFile();
-        int size, typeOfDroid;
+        int size;//Розмір команди
 
         Scanner input = new Scanner(System.in);
         System.out.print(Text.BLUE + "\n     Enter the size of the first command: "+ Text.BLUE);
@@ -28,6 +28,7 @@ public class Arena {
 
         System.out.print(Text.RED + "\n     Enter the size of the second command: ");
         size = Integer.parseInt(input.nextLine());
+
         this.sizeST = size;
         this.teamSecond = new BaseDroid[size];
         completingCommands(this.teamSecond);
@@ -38,18 +39,18 @@ public class Arena {
 
     public void PrintTeam(){
         System.out.print(Text.BLUE+"\t\t\tFirst team \n"+Text.RESET);
-        file.getFw().printf("\t\t\tFirst team \n");
+        file.getFw().printf(Text.BLUE+"\t\t\tFirst team \n");
         for(int i = 0;i< teamFirst.length;i++){
             System.out.printf(Text.BLUE+"%d - %s (%s)\n"+Text.RESET, i+1, teamFirst[i].getName(), teamFirst[i].getType());
-            file.getFw().printf("%s - %s\n", teamFirst[i].getName(), teamFirst[i].getType());
+            file.getFw().printf(Text.BLUE+"%d - %s (%s)\n"+Text.RESET, i+1, teamFirst[i].getName(), teamFirst[i].getType());
         }
 
         System.out.print(Text.RED+"\t\t\tSecond team \n"+Text.RESET);
-        file.getFw().printf("\t\t\tSecond team \n");
+        file.getFw().print(Text.RED+"\t\t\tSecond team \n"+Text.RESET);
 
         for(int i = 0;i< teamSecond.length;i++){
             System.out.printf(Text.RED+"%d - %s (%s)\n"+Text.RESET, i+1, teamSecond[i].getName(), teamSecond[i].getType());
-            file.getFw().printf("%s - %s\n", teamSecond[i].getName(), teamSecond[i].getType());
+            file.getFw().printf(Text.RED+"%d - %s (%s)\n"+Text.RESET, i+1, teamSecond[i].getName(), teamSecond[i].getType());
         }
 
     }
@@ -137,9 +138,9 @@ public class Arena {
 
         if (enemy.getHealth() <= 0) {
             kill = true;
-            System.out.printf("\n%s(%s) kill %s(%s)", droid.getName(), droid.getType(),
+            System.out.printf(Text.PURPLE+"%s(%s) kill %s(%s)"+Text.RESET, droid.getName(), droid.getType(),
                     enemy.getName(), enemy.getType());
-            fw.printf("\n%s(%s) kill %s(%s)", droid.getName(), droid.getType(),
+            fw.printf(Text.PURPLE+"%s(%s) kill %s(%s)"+Text.RESET, droid.getName(), droid.getType(),
                     enemy.getName(), enemy.getType());
         }
         fw.print("\n");
@@ -154,16 +155,19 @@ public class Arena {
     }
 
     public void Fight() {
+
         System.out.print(Text.RESET +"\t\t Fight\n");
         file.getFw().print("\t\t Fight\n");
+
         int round = 0;
+
         while (true) {
             round++;
             System.out.printf(Text.GREEN +"------------Round %d---------------\n"+ Text.RESET, round);
-            file.getFw().printf("------------Round %d---------------\n", round);
+            file.getFw().printf(Text.GREEN +"------------Round %d---------------\n"+ Text.RESET, round);
 
             System.out.print(Text.BLUE+"\t\t\tFirst team attacked\n"+Text.RESET);
-            file.getFw().print("\t\t\tFirst team attacked\n");
+            file.getFw().print(Text.BLUE+"\t\t\tFirst team attacked\n"+Text.RESET);
 
             for (int i = 0; i < sizeFT; i++) {
                 int droidFT = (int) (Math.random() * sizeFT);//індекс дроїда з першої команди
@@ -178,12 +182,12 @@ public class Arena {
 
             if (sizeST <= 0) {//Виграла перша команда
                 System.out.print(Text.TWFT);
-                file.getFw().print("First team winner");
+                file.getFw().print(Text.TWFT);
                 break;
             }
 
             System.out.print(Text.RED+"\t\t\t Second team attacked\n"+Text.RESET);
-            file.getFw().print("\t\t\t Second team attacked\n");
+            file.getFw().print(Text.RED+"\t\t\t Second team attacked\n"+Text.RESET);
 
             for (int i = 0; i < sizeST; i++) {
                 int droidFT = (int) (Math.random() * sizeFT);//індекс дроїда з першої команди
@@ -198,7 +202,7 @@ public class Arena {
 
             if (sizeFT <= 0) {//Виграла друга команда
                 System.out.print(Text.TWST);
-                file.getFw().print("Second team winner");
+                file.getFw().print(Text.TWST);
                 break;
             }
         }

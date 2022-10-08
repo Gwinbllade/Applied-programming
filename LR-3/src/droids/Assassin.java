@@ -1,5 +1,7 @@
 package droids;
 
+import java.io.PrintWriter;
+
 public class Assassin extends BaseDroid{
     public Assassin(String name){
         this.name = name;
@@ -11,7 +13,7 @@ public class Assassin extends BaseDroid{
     }
 
     @Override
-    public boolean attack(BaseDroid enemy){
+    public boolean attack(BaseDroid enemy, PrintWriter fw){
         boolean attackSuccess = false;
 
         int pAttack = (int) ( Math.random() * 11 );
@@ -20,6 +22,7 @@ public class Assassin extends BaseDroid{
         if(pAttack <= this.precision) {
             if (SAC <= specialAbilityChance) {
                 System.out.printf("\u001B[33m"+"%s(%s) Activates a special ability and becomes stronger\n"+"\033[0m", this.name, this.type);
+                fw.printf("%s(%s) Activates a special ability and becomes stronger\n", this.name, this.type);
                 enemy.health -= this.damage*2;
             }
 

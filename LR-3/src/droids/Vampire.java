@@ -1,5 +1,7 @@
 package droids;
 
+import java.io.PrintWriter;
+
 public class Vampire extends BaseDroid{
     public Vampire(String name){
         this.name = name;
@@ -11,13 +13,14 @@ public class Vampire extends BaseDroid{
     }
 
     @Override
-    public boolean attack(BaseDroid enemy){
+    public boolean attack(BaseDroid enemy, PrintWriter fw){
         boolean attackSuccess = false;
 
         int pAttack = (int) ( Math.random() * 11 );
 
         if(pAttack <= this.precision) {
             System.out.printf("\u001B[33m"+"%s(%s) Being treated(+2) %n"+"\u001B[33m", this.name, this.type );
+            fw.printf("%s(%s) Being treated(+2) %n", this.name, this.type );
             enemy.health -= this.damage;
             this.health += 2;
             attackSuccess = true;

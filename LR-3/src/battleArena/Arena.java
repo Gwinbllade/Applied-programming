@@ -1,7 +1,9 @@
 package battleArena;
 import droids.*;
+
+import java.io.PrintWriter;
 import java.util.Scanner;
-import text.Text;
+import text.*;
 
 public class Arena {
     public static final String ANSI_BLACK = "\u001B[30m";
@@ -9,9 +11,11 @@ public class Arena {
     private final BaseDroid[] teamSecond;
     private int sizeFT;
     private int sizeST;
-
+    private FileGames file;
 
     public Arena() {
+        file = new FileGames();
+        file.CreateFile();
         int size, typeOfDroid;
 
         Scanner input = new Scanner(System.in);
@@ -34,13 +38,18 @@ public class Arena {
 
     public void PrintTeam(){
         System.out.print(Text.BLUE+"\t\t\tFirst team \n"+Text.RESET);
+        file.getFw().printf("\t\t\tFirst team \n");
         for(int i = 0;i< teamFirst.length;i++){
             System.out.printf(Text.BLUE+"%d - %s (%s)\n"+Text.RESET, i+1, teamFirst[i].getName(), teamFirst[i].getType());
+            file.getFw().printf("%s %s\n", teamFirst[i].getName(), teamFirst[i].getType());
         }
 
         System.out.print(Text.RED+"\t\t\tSecond team \n"+Text.RESET);
+        file.getFw().printf("\t\t\tSecond team \n");
+
         for(int i = 0;i< teamSecond.length;i++){
             System.out.printf(Text.RED+"%d - %s (%s)\n"+Text.RESET, i+1, teamSecond[i].getName(), teamSecond[i].getType());
+            file.getFw().printf("%s %s\n", teamSecond[i].getName(), teamSecond[i].getType());
         }
 
     }
@@ -49,7 +58,7 @@ public class Arena {
         int typeOfDroid;
         String name;
         Scanner input = new Scanner(System.in);
-        System.out.println("Select droid type: assassin(1), doctor(2), tank(3), vampire(4), droid information(0)");
+        System.out.print("Select droid type: assassin(1), doctor(2), tank(3), vampire(4), droid information(0)\n");
         for (int i = 0; i < arr.length; i++) {
             System.out.print("Select droid type:");
             typeOfDroid = Integer.parseInt(input.nextLine());
@@ -77,34 +86,35 @@ public class Arena {
                     break;
                 case (0):
                     System.out.print("""
-                            (0)Doctor:
-                            Health - 100
-                            Damage - 5
-                            Precision - 80%
-                            Special ability: During an attack with a 10% chance to increase health by 5 units \n \n""");
-                    System.out.print("""
                             (1)Assassin:
                             Health - 50
                             Damage - 10
                             Precision - 90%
                             Special ability: With a 20% chance to deal double damage \n \n""");
                     System.out.print("""
-                            (2)Vampire:
-                            Health - 80
-                            Damage - 4
-                            Precision - 50%
-                            Special ability: On a successful attack, heals for 2 units \n \n""");
+                            (2)Doctor:
+                            Health - 100
+                            Damage - 5
+                            Precision - 80%
+                            Special ability: During an attack with a 10% chance to increase health by 5 units \n \n""");
                     System.out.print("""
-                            (3)Vampire:
+                            (3)Tank:
                             Health - 200
                             Damage - 4
                             Precision - 50%
                             Special ability: no \n \n""");
+                    System.out.print("""
+                            (4)Vampire:
+                            Health - 80
+                            Damage - 4
+                            Precision - 50%
+                            Special ability: On a successful attack, heals for 2 units \n \n""");
+
                     i--;
                     break;
                 default:
                     i--;
-                    System.out.println("Error. Please enter the type again");
+                    System.out.print("Error. Please enter the type again\n");
                     break;
             }
 
@@ -112,21 +122,28 @@ public class Arena {
     }
 
 
-    public static boolean Attacked(BaseDroid droid, BaseDroid enemy) {
+    public static boolean Attacked(BaseDroid droid, BaseDroid enemy, PrintWriter fw) {
         boolean kill = false;
-        if (droid.attack(enemy)) {
+        if (droid.attack(enemy, fw) ) {
             System.out.printf("%s(%s) attacked  %s(%s)", droid.getName(), droid.getType(),
                     enemy.getName(), enemy.getType());
+            fw.printf("%s(%s) attacked  %s(%s)\n", droid.getName(), droid.getType(),
+                    enemy.getName(), enemy.getType());
+
         } else {
             System.out.printf("%s(%s) missed", droid.getName(), droid.getType());
+            fw.printf("%s(%s) missed\n", droid.getName(), droid.getType());
         }
 
         if (enemy.getHealth() <= 0) {
             kill = true;
             System.out.printf("\n%s(%s) kill %s(%s)", droid.getName(), droid.getType(),
                     enemy.getName(), enemy.getType());
+            fw.printf("\n%s(%s) kill %s(%s)", droid.getName(), droid.getType(),
+                    enemy.getName(), enemy.getType());
         }
-        System.out.print("\n\n\n");
+        fw.print("\n");
+        System.out.print("\n");
         return kill;
     }
 
@@ -137,41 +154,49 @@ public class Arena {
     }
 
     public void Fight() {
-        System.out.println(Text.RESET +"\t\t Fight");
+        System.out.print(Text.RESET +"\t\t Fight\n");
+        file.getFw().print("\t\t Fight\n");
         int round = 0;
         while (true) {
             round++;
             System.out.printf(Text.GREEN +"------------Round %d---------------\n"+ Text.RESET, round);
+            file.getFw().printf("------------Round %d---------------\n", round);
+
             System.out.print(Text.BLUE+"\t\t\tFirst team attacked\n"+Text.RESET);
+            file.getFw().print("\t\t\tFirst team attacked\n");
 
             for (int i = 0; i < sizeFT; i++) {
                 int droidFT = (int) (Math.random() * sizeFT);//індекс дроїда з першої команди
                 int droidST = (int) (Math.random() * sizeST);//індекс дроїда з другої команди
-                if (Attacked(teamFirst[droidFT], teamSecond[droidST])) {
+                if (Attacked(teamFirst[droidFT], teamSecond[droidST], file.getFw())) {
                     sizeST = removeDroid(teamSecond, droidST, sizeST);
                 }
             }
 
-            if (sizeST <= 0) {
-
+            if (sizeST <= 0) {//Виграла перша команда
                 System.out.print(Text.TWFT);
+                file.getFw().print("First team winner");
                 break;
             }
 
             System.out.print(Text.RED+"\t\t\t Second team attacked\n"+Text.RESET);
+            file.getFw().print("\t\t\t Second team attacked\n");
+
             for (int i = 0; i < sizeST; i++) {
                 int droidFT = (int) (Math.random() * sizeFT);//індекс дроїда з першої команди
                 int droidST = (int) (Math.random() * sizeST);//індекс дроїда з другої команди
-                if (Attacked(teamSecond[droidST], teamFirst[droidFT])) {
+                if (Attacked(teamSecond[droidST], teamFirst[droidFT], file.getFw())) {
                     sizeFT = removeDroid(teamFirst, droidFT, sizeFT);
                 }
             }
 
-            if (sizeFT <= 0) {
+            if (sizeFT <= 0) {//Виграла друга команда
                 System.out.print(Text.TWST);
+                file.getFw().print("Second team winner");
                 break;
             }
         }
+        file.getFw().close();
     }
 }
 

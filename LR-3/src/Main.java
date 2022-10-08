@@ -9,21 +9,8 @@ public class Main {
         Scanner input = new Scanner(System.in);
         Arena arena = new Arena();
         int action;
-        while (true) {
-            System.out.print("\nSelect an action: ");
-            action = input.nextInt();
-            switch (action) {
-                case (0):
-                    arena.PrintTeam();
-                    break;
-                case (1):
-                    arena.Fight();
-                    return;
-                default:
-                    System.out.println("Error");
-                    break;
-            }
-        }
+        arena.PrintTeam();
+        arena.Fight();
 }
 
 

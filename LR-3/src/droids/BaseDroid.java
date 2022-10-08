@@ -1,4 +1,7 @@
 package droids;
+
+import java.io.PrintWriter;
+
 public abstract class  BaseDroid {
     protected String type;
     protected String name;
@@ -30,7 +33,7 @@ public abstract class  BaseDroid {
     public String getType() {
         return type;
     }
-    public boolean attack(BaseDroid enemy) {
+    public boolean attack(BaseDroid enemy, PrintWriter fw) {
         return false;
     }
 

@@ -1,5 +1,7 @@
 package droids;
 
+import java.io.PrintWriter;
+
 public class Tank extends BaseDroid{
     public Tank(String name){
         this.name = name;
@@ -11,7 +13,7 @@ public class Tank extends BaseDroid{
     }
 
     @Override
-    public boolean attack(BaseDroid enemy){
+    public boolean attack(BaseDroid enemy, PrintWriter fw){
         boolean attackSuccess = false;
         int pAttack = (int) ( Math.random() * 11 );
 

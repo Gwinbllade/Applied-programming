@@ -27,8 +27,6 @@ public class Main {
         while (true) {
             System.out.print("Enter the file path: ");
             path = input.nextLine();
-            //"C:\\Users\\38097\\Desktop\\TestFile.txt"
-            //C:\Users\38097\Desktop\TestFile.txt
             file = new File(path);
 
             try {

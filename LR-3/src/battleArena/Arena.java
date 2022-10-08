@@ -138,9 +138,9 @@ public class Arena {
 
         if (enemy.getHealth() <= 0) {
             kill = true;
-            System.out.printf(Text.PURPLE+"%s(%s) kill %s(%s)"+Text.RESET, droid.getName(), droid.getType(),
+            System.out.printf(Text.PURPLE+"\n%s(%s) kill %s(%s)"+Text.RESET, droid.getName(), droid.getType(),
                     enemy.getName(), enemy.getType());
-            fw.printf(Text.PURPLE+"%s(%s) kill %s(%s)"+Text.RESET, droid.getName(), droid.getType(),
+            fw.printf(Text.PURPLE+"\n%s(%s) kill %s(%s)"+Text.RESET, droid.getName(), droid.getType(),
                     enemy.getName(), enemy.getType());
         }
         fw.print("\n");

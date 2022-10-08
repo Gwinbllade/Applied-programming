@@ -41,7 +41,7 @@ public class Arena {
         file.getFw().printf("\t\t\tFirst team \n");
         for(int i = 0;i< teamFirst.length;i++){
             System.out.printf(Text.BLUE+"%d - %s (%s)\n"+Text.RESET, i+1, teamFirst[i].getName(), teamFirst[i].getType());
-            file.getFw().printf("%s %s\n", teamFirst[i].getName(), teamFirst[i].getType());
+            file.getFw().printf("%s - %s\n", teamFirst[i].getName(), teamFirst[i].getType());
         }
 
         System.out.print(Text.RED+"\t\t\tSecond team \n"+Text.RESET);
@@ -49,7 +49,7 @@ public class Arena {
 
         for(int i = 0;i< teamSecond.length;i++){
             System.out.printf(Text.RED+"%d - %s (%s)\n"+Text.RESET, i+1, teamSecond[i].getName(), teamSecond[i].getType());
-            file.getFw().printf("%s %s\n", teamSecond[i].getName(), teamSecond[i].getType());
+            file.getFw().printf("%s - %s\n", teamSecond[i].getName(), teamSecond[i].getType());
         }
 
     }
@@ -170,6 +170,9 @@ public class Arena {
                 int droidST = (int) (Math.random() * sizeST);//індекс дроїда з другої команди
                 if (Attacked(teamFirst[droidFT], teamSecond[droidST], file.getFw())) {
                     sizeST = removeDroid(teamSecond, droidST, sizeST);
+                    if(sizeST <= 0){
+                        break;
+                    }
                 }
             }
 
@@ -187,6 +190,9 @@ public class Arena {
                 int droidST = (int) (Math.random() * sizeST);//індекс дроїда з другої команди
                 if (Attacked(teamSecond[droidST], teamFirst[droidFT], file.getFw())) {
                     sizeFT = removeDroid(teamFirst, droidFT, sizeFT);
+                    if(sizeFT <= 0){
+                        break;
+                    }
                 }
             }
 

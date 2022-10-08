@@ -1,8 +1,11 @@
+package main;
+
 import battleArena.Arena;
 import text.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -48,7 +51,17 @@ public class Main {
         while (true) {
             Scanner input = new Scanner(System.in);
             System.out.print("\nChoose an action: end program(0), start new game(1), start the game from the file (2): ");
-            int action = input.nextInt();
+            int action;
+
+            while (true){
+                try {
+                    action = Integer.parseInt(input.nextLine());
+                } catch (NumberFormatException e){
+                    System.out.print("Error. Please enter the action again: ");
+                    continue;
+                }
+                break;
+            }
 
             switch (action){
                 case(0):

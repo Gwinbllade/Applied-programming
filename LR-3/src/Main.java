@@ -49,6 +49,7 @@ public class Main {
             Scanner input = new Scanner(System.in);
             System.out.print("\nChoose an action: end program(0), start new game(1), start the game from the file (2): ");
             int action = input.nextInt();
+
             switch (action){
                 case(0):
                     System.out.println("Exit the program");

@@ -20,14 +20,33 @@ public class Arena {
 
         Scanner input = new Scanner(System.in);
         System.out.print(Text.BLUE + "\n     Enter the size of the first command: "+ Text.BLUE);
-        size = Integer.parseInt(input.nextLine());
+
+        while (true){
+            try {
+                size = Integer.parseInt(input.nextLine());
+            } catch (NumberFormatException e){
+                System.out.print("Error. Please enter the size again: ");
+                continue;
+            }
+            break;
+        }
+
         this.sizeFT = size;
 
         this.teamFirst = new BaseDroid[size];
         completingCommands(this.teamFirst);
 
         System.out.print(Text.RED + "\n     Enter the size of the second command: ");
-        size = Integer.parseInt(input.nextLine());
+
+        while (true){
+            try {
+                size = Integer.parseInt(input.nextLine());
+            } catch (NumberFormatException e){
+                System.out.print("Error. Please enter the size again: ");
+                continue;
+            }
+            break;
+        }
 
         this.sizeST = size;
         this.teamSecond = new BaseDroid[size];
@@ -60,9 +79,16 @@ public class Arena {
         String name;
         Scanner input = new Scanner(System.in);
         System.out.print("Select droid type: assassin(1), doctor(2), tank(3), vampire(4), droid information(0)\n");
+
         for (int i = 0; i < arr.length; i++) {
             System.out.print("Select droid type:");
-            typeOfDroid = Integer.parseInt(input.nextLine());
+            try {
+                typeOfDroid = Integer.parseInt(input.nextLine());
+            } catch (NumberFormatException e){
+                i--;
+                System.out.print("Error. Please enter the type again\n");
+                continue;
+            }
 
             switch (typeOfDroid) {
                 case (1):

@@ -15,17 +15,6 @@ public abstract class  BaseDroid {
         return name;
     }
 
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public double getDamage() {
-        return damage;
-    }
-
-
     public double getHealth() {
         return health;
     }
@@ -33,6 +22,7 @@ public abstract class  BaseDroid {
     public String getType() {
         return type;
     }
+
     public boolean attack(BaseDroid enemy, PrintWriter fw) {
         return false;
     }

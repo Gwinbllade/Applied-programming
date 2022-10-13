@@ -9,7 +9,7 @@ public class Tank extends BaseDroid{
         this.health = 200;
         this.damage = 4;
         this.precision = 5;
-        this.specialAbilityChance = 2;
+        this.specialAbilityChance = 0;
     }
 
     @Override

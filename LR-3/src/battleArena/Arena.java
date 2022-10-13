@@ -151,12 +151,12 @@ public class Arena {
     }
 
 
-    public static boolean Attacked(BaseDroid droid, BaseDroid enemy, PrintWriter fw) {
+    public static boolean Attacked(BaseDroid droid, BaseDroid enemy, PrintWriter fw, String color1,String color2) {
         boolean kill = false;
         if (droid.attack(enemy, fw) ) {
-            System.out.printf("%s(%s) attacked  %s(%s)", droid.getName(), droid.getType(),
+            System.out.printf(color1+"%s(%s)"+Text.RESET+ "attacked" +color2+" %s(%s)"+Text.RESET, droid.getName(), droid.getType(),
                     enemy.getName(), enemy.getType());
-            fw.printf("%s(%s) attacked  %s(%s)\n", droid.getName(), droid.getType(),
+            fw.printf(color1+"%s(%s)"+Text.RESET+ "attacked" +color2+" %s(%s)"+Text.RESET, droid.getName(), droid.getType(),
                     enemy.getName(), enemy.getType());
 
         } else {
@@ -200,7 +200,7 @@ public class Arena {
             for (int i = 0; i < sizeFT; i++) {
                 int droidFT = (int) (Math.random() * sizeFT);//індекс дроїда з першої команди
                 int droidST = (int) (Math.random() * sizeST);//індекс дроїда з другої команди
-                if (Attacked(teamFirst[droidFT], teamSecond[droidST], file.getFw())) {
+                if (Attacked(teamFirst[droidFT], teamSecond[droidST], file.getFw(), Text.BLUE, Text.RED)) {
                     sizeST = removeDroid(teamSecond, droidST, sizeST);
                     if(sizeST <= 0){
                         break;
@@ -220,7 +220,7 @@ public class Arena {
             for (int i = 0; i < sizeST; i++) {
                 int droidFT = (int) (Math.random() * sizeFT);//індекс дроїда з першої команди
                 int droidST = (int) (Math.random() * sizeST);//індекс дроїда з другої команди
-                if (Attacked(teamSecond[droidST], teamFirst[droidFT], file.getFw())) {
+                if (Attacked(teamSecond[droidST], teamFirst[droidFT], file.getFw(), Text.RED, Text.BLUE) ) {
                     sizeFT = removeDroid(teamFirst, droidFT, sizeFT);
                     if(sizeFT <= 0){
                         break;

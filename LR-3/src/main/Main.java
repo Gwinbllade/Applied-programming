@@ -5,15 +5,12 @@ import text.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
 public class Main {
     public static void game() {
-        Scanner input = new Scanner(System.in);
         Arena arena = new Arena();
-        int action;
         arena.PrintTeam();
         arena.Fight();
     }
@@ -61,22 +58,21 @@ public class Main {
                 break;
             }
 
-            switch (action){
-                case(0):
+            switch (action) {
+                case 0 -> {
                     System.out.println("Exit the program");
                     input.close();
                     return;
-                case(1):
+                }
+                case 1 -> {
                     System.out.println("Star");
                     game();
-                    break;
-                case(2):
+                }
+                case 2 -> {
                     System.out.print("Star from the file\n");
                     startGameFromFile();
-                    break;
-                default:
-                    System.out.println("Error");
-                    break;
+                }
+                default -> System.out.println("Error");
             }
         }
     }

@@ -104,7 +104,7 @@ public class DataBase {
         Scanner in = new Scanner(System.in);
         int action, ID;
         while (true) {
-            System.out.println("show list of tariffs(1) choose tariff(2) menu(0)");
+            System.out.print("Show list of tariffs(1) choose tariff(2) menu(0): ");
             action = Integer.parseInt(in.nextLine());
             switch (action) {
                 case (1):
@@ -459,10 +459,7 @@ public class DataBase {
             if(resultSet.getInt(1) == 0) {
 
                 statement.executeUpdate(String.format("INSERT INTO Client " +
-                        "VALUES('%s','%s','%s','%s','%s',null)",password,phoneNumber,name,surname,patronymic));
-                System.out.printf("|%-5d|%-13s|%-25s|%-17s|%-17s|%-8s|\n",resultSet.getInt(1), resultSet.getString(2),
-                        resultSet.getString(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6) );
-
+                        "VALUES('%s','%s','%s','%s','%s',null)",password,phoneNumber,surname,name,patronymic));
                 return new CommandResult<String>("Register succeed!",LoginUser,true);
 
             }
@@ -533,10 +530,11 @@ public class DataBase {
         String line = "+-----+-------------+-------------------------+-----------------+-----------------+--------+";
         try {
             Statement statement = connection.createStatement();
-            System.out.println(line);
-            resultSet = statement.executeQuery(String.format("SELECT * FROM Client " +
+
+            resultSet = statement.executeQuery(String.format("SELECT ClientID,PhoneNumber,Surname,Name,Patronymic,TariffID FROM [Client] " +
                     "WHERE PhoneNumber = '%s'", userLogin));
             resultSet.next();
+            System.out.println(line);
             System.out.print("|ID   |PhoneNumber  |         Surname         |      Name       |   Patronymic    |TariffID|\n");
             System.out.println(line);
             System.out.printf("|%-5d|%-13s|%-25s|%-17s|%-17s|%-8s|\n",resultSet.getInt(1), resultSet.getString(2),

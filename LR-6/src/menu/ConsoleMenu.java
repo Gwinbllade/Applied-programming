@@ -53,7 +53,7 @@ public class ConsoleMenu {
                 }
             }
             catch (Exception e){
-                System.out.println("Error");
+                System.out.println("Menu Error");
             }
 
 

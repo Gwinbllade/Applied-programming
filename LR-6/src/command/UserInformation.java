@@ -2,15 +2,15 @@ package command;
 
 import database.DataBase;
 
-public class LogIn implements Command {
+public class UserInformation implements Command{
     DataBase database;
 
-    public LogIn(DataBase dataBase) {
+    public UserInformation(DataBase dataBase) {
         this.database = dataBase;
     }
-
     @Override
     public CommandResult<String> execute(String[] args) {
-        return database.logIn(args);
+
+        return database.userInformation(args);
     }
 }

@@ -108,7 +108,7 @@ public class DataBase {
             action = Integer.parseInt(in.nextLine());
             switch (action) {
                 case (1):
-                    this.listTariff(null);
+                    this.listTariff(args);
                     break;
                 case(2):
                     try {
@@ -148,16 +148,16 @@ public class DataBase {
         String buffStr;
         while (true) {
             System.out.println("\t\tUpdate tariff\n");
-            System.out.print("show list of tariffs(1) update tariff(2) menu(0): ");
+            System.out.print("Show list of tariffs(1) update tariff(2) menu(0): ");
             action = Integer.parseInt(in.nextLine());
             switch (action){
                 case(1):
-                    this.listTariff(null);
+                    this.listTariff(args);
                     break;
                 case(2):
                     try {
                         Statement statement = connection.createStatement();
-                        System.out.println("Enter the ID tariff that you want to update ");
+                        System.out.print("Enter the ID tariff that you want to update: ");
                         ID = Integer.parseInt(in.nextLine());
                         resultSet = statement.executeQuery(String.format("SELECT COUNT (*) FROM Tariff " +
                                 "WHERE TariffID = %d", ID));
@@ -168,7 +168,7 @@ public class DataBase {
                             resultSet.next();
                             tariff = new Tariff(resultSet.getInt(1),resultSet.getString(2),resultSet.getInt(3),resultSet.getInt(4),
                                     resultSet.getInt(5),resultSet.getInt(6),resultSet.getInt(7),resultSet.getInt(8),resultSet.getInt(9),
-                                    resultSet.getInt(10),resultSet.getString(10));
+                                    resultSet.getInt(10),resultSet.getString(11));
 
                             while (true){
                                 System.out.println("Enter a new value for the tariff parameter (-1) do not change the value");
@@ -179,35 +179,35 @@ public class DataBase {
 
                                 System.out.printf("subscription Fee(%d): ",tariff.getSubscriptionFee());
                                 buffInt = Integer.parseInt(in.nextLine());
-                                tariff.setSubscriptionFee(buffInt == -1? tariff.getSubscriptionFee():buffInt);
+                                tariff.setSubscriptionFee(buffInt <= -1? tariff.getSubscriptionFee():buffInt);
 
                                 System.out.printf("minutesByOperator(%d): ",tariff.getMinutesByOperator());
                                 buffInt = Integer.parseInt(in.nextLine());
-                                tariff.setMinutesByOperator(buffInt == -1?tariff.getMinutesByOperator():buffInt );
+                                tariff.setMinutesByOperator(buffInt <= -1?tariff.getMinutesByOperator():buffInt );
 
                                 System.out.printf("minunesOtherOperators(%d): ",tariff.getMinunesOtherOperators());
                                 buffInt = Integer.parseInt(in.nextLine());
-                                tariff.setMinunesOtherOperators(buffInt == -1?tariff.getMinunesOtherOperators():buffInt );
+                                tariff.setMinunesOtherOperators(buffInt <= -1?tariff.getMinunesOtherOperators():buffInt );
 
                                 System.out.printf("SMS(%d): ",tariff.getSMS());
                                 buffInt = Integer.parseInt(in.nextLine());
-                                tariff.setSMS(buffInt == -1?tariff.getSMS():buffInt );
+                                tariff.setSMS(buffInt <= -1?tariff.getSMS():buffInt );
 
                                 System.out.printf("mobileData(%d): ",tariff.getMobileData());
                                 buffInt = Integer.parseInt(in.nextLine());
-                                tariff.setMobileData(buffInt == -1?tariff.getMobileData():buffInt );
+                                tariff.setMobileData(buffInt <= -1?tariff.getMobileData():buffInt );
 
                                 System.out.printf("priceAdditionalMinute(%d): ",tariff.getPriceAdditionalMinute());
                                 buffInt = Integer.parseInt(in.nextLine());
-                                tariff.setPriceAdditionalMinute(buffInt == -1?tariff.getPriceAdditionalMinute():buffInt );
+                                tariff.setPriceAdditionalMinute(buffInt <= -1?tariff.getPriceAdditionalMinute():buffInt );
 
                                 System.out.printf("priceAdditionalSMS(%d): ",tariff.getPriceAdditionalSMS());
                                 buffInt = Integer.parseInt(in.nextLine());
-                                tariff.setPriceAdditionalSMS(buffInt == -1?tariff.getPriceAdditionalSMS():buffInt );
+                                tariff.setPriceAdditionalSMS(buffInt <= -1?tariff.getPriceAdditionalSMS():buffInt );
 
                                 System.out.printf("priceAdditionalMB(%d): ",tariff.getPriceAdditionalMB());
                                 buffInt = Integer.parseInt(in.nextLine());
-                                tariff.setPriceAdditionalMB(buffInt == -1?tariff.getPriceAdditionalMB():buffInt );
+                                tariff.setPriceAdditionalMB(buffInt <= -1  ?tariff.getPriceAdditionalMB():buffInt );
 
                                 System.out.printf("specialCondition(%s): ",tariff.getSpecialCondition());
                                 buffStr = in.nextLine();
@@ -258,11 +258,11 @@ public class DataBase {
         int action, ID;
         boolean result = false;
         while (true) {
-            System.out.println("show list of tariffs(1) remove tariff(2) menu(0)");
+            System.out.print("Show list of tariffs(1) remove tariff(2) menu(0): ");
             action = Integer.parseInt(in.nextLine());
             switch (action){
                 case(1):
-                    this.listTariff(null);
+                    this.listTariff(args);
                     break;
                 case(2):
                     try {
@@ -287,7 +287,7 @@ public class DataBase {
                 case(0):
                     return new CommandResult<String>("Delete succeed!",LoginUser,true);
                 default:
-                    System.out.println("Error");
+                    System.out.println("Error def");
                     break;
             }
         }
@@ -383,12 +383,12 @@ public class DataBase {
                         }
                         break;
                     } catch (Exception e) {
-                        return new CommandResult<String>("ListTariff failed!",LoginUser,false);
+                        return new CommandResult<String>("List tariff failed!",LoginUser,false);
                     }
 
                 case (0):
                     System.out.println("Exit");
-                    return new CommandResult<String>("ListTariff succeed!",LoginUser,true);
+                    return new CommandResult<String>("List tariff succeed!",LoginUser,true);
 
                 default:
                     System.out.print("Error");
@@ -492,7 +492,7 @@ public class DataBase {
             password = input.nextLine();
 
             if (Objects.equals(login, "admin") && Objects.equals(password, "12345678")){
-                return new CommandResult<String>("Log in subscribers succeed!","admin",true);
+                return new CommandResult<String>("Log in admin succeed!","admin",true);
             }
 
             resultSet = statement.executeQuery(String.format("SELECT COUNT(ClientID) FROM  Client " +

@@ -76,7 +76,7 @@ public class ConsoleMenu {
 
 
         while(action != 0){
-            System.out.print("\t\t->Select admin action (1)Add Tariff,(2)Delete tariff,(3)Display Subscribers,(4)Update Tariff,(5)Tariff List: ");
+            System.out.print("\t\t->Select admin action (1)Add Tariff,(2)Delete tariff,(3)Display Subscribers,(4)Update Tariff,(5)Tariff List, log out(0): ");
             action = Integer.parseInt(in.nextLine());
 
             try {

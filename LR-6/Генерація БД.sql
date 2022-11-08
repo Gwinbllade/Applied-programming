@@ -4,6 +4,7 @@ USE MobileСompany
 
 
 
+
 CREATE TABLE Tariff(
 	TariffID int NOT NULL IDENTITY(1,1)  PRIMARY KEY,
 	[Name] varchar(50) UNIQUE NOT NULL,
@@ -18,6 +19,8 @@ CREATE TABLE Tariff(
 	SpecialCondition varchar(100) NULL		 --Спеціальні умови
 )
 
+
+
 CREATE TABLE Client(
 	ClientID int NOT NULL IDENTITY(1,1)  PRIMARY KEY,
 	[Password] varchar(100) NOT NULL, 
@@ -29,7 +32,20 @@ CREATE TABLE Client(
 )
 
 
+INSERT INTO Client 
+VALUES ('123','380000000000','Бичковський','Ігор','Ярославович',1),
+	   ('12332','380000000001','Бичковський','Степан','Ігорович',2),
+	   ('asdwqe1`13213asd*32','380000000002','Бичковський','Іван','Степанович',null),
+	   ('12fljhasf3243','380000000003','Бичковський','Ігнат','Іванович',null)
 
+
+INSERT INTO Tariff 
+VALUES ('Tariff1',100,1000,100,5,6,1,10,2,'None'),
+	   ('Tariff2',100,1000,100,5,6,1,10,2,'None'),
+	   ('Tariff3',100,1000,100,5,6,1,10,2,'None'),
+	   ('Tariff4',100,1000,100,5,6,1,10,2,'None')
+
+	  
 
 
 
